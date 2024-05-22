@@ -37,22 +37,29 @@ const ll mod = 1e9+7;
         }
         return pali[i][j] = 1;
     }
-    ll rec(ll i){
-        if(i==n || is_palindrome(i,n-1)) return 0;
-        if(dp[i] != -1) return dp[i];
-        ll ans=1e9;
+    bool ans=0;
+    void rec(ll i, ll ct){
+        if(i==n) return;
+        if(ct==2){
+            if(is_palindrome(i,n-1)) ans=1;
+            return;
+        }
+        if(dp[i] != -1) return;
+    
         for(ll j=i; j<n; j++){
             if(is_palindrome(i,j)){
-                ans = min(ans, rec(j));
+                rec(j+1,ct+1);
             }
         }
-        return dp[i] = ans;
+        dp[i] = 1;
+        return;
     }
     bool checkPartitioning(string s1) {
         s = s1;
         n = s.size();
         pali.assign(n, vll(n, -1));
         dp.assign(n, -1);
-        return rec(0)==2;
+        rec(0,0);
+        return ans;
     }
 };
