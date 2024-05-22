@@ -43,16 +43,16 @@ const ll mod = 1e9+7;
         ll ans=1e9;
         for(ll j=i; j<n; j++){
             if(is_palindrome(i,j)){
-                ans = min(ans, rec(j+1));
+                ans = min(ans, rec(j));
             }
         }
-        return dp[i] = 1 + ans;
+        return dp[i] = ans;
     }
-    int minCut(string s1) {
+    bool checkPartitioning(string s1) {
         s = s1;
         n = s.size();
         pali.assign(n, vll(n, -1));
         dp.assign(n, -1);
-        return rec(0);
+        return rec(0)==2;
     }
 };
